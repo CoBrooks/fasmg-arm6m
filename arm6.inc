@@ -95,7 +95,7 @@ calminstruction adr? dst, label*
 	arrange		error, =err 'destination must be low register'
 	assemble	error
 
-cont:	compute		address, label - (($ + 4) and 0xFC)
+cont:	compute		address, label - (($ + 4) and 0xFFFFFFFC)
 	check		address mod 4 = 0
 	jyes		rangecheck
 	arrange		error, =err 'label must be 4 aligned'
@@ -727,7 +727,7 @@ literal:
 	arrange		error, =err 'label must be 4 aligned'
 	assemble	error
 rangecheck:
-	compute		arm6.@src.value, arm6.@src.value - (($ + 4) and 0xFC)
+	compute		arm6.@src.value, arm6.@src.value - (($ + 4) and 0xFFFFFFFC)
 	check		arm6.@src.value <= 1020 & arm6.@src.value >= 0
 	jyes		litfinish
 	arrange		error, =err 'label is too far'
